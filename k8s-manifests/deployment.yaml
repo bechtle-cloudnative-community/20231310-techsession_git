@@ -1,0 +1,21 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web-depl
+  namespace: techsess
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: web
+  template:
+    metadata:
+      labels:
+        app: web
+    spec:
+      containers:
+      - name: nginx
+        image: ghcr.io/bechtle-cloudnative-community/20231310-techsession_git:latest
+        ports:
+        - containerPort: 80

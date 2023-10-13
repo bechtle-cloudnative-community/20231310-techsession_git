@@ -1,1 +1,33 @@
-Hallo ich bin Max
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Hello TC</title>
+</head>
+<body>
+    <h1>Hello, TechCommunity!</h1>
+    <p>Current Time: <span id="current-time"></span></p>
+
+    <p id="user-info"></p>
+
+    <script>
+    const userInfoElement = document.getElementById('user-info');
+    userInfoElement.textContent = `User Agent: ${navigator.userAgent}`;
+    </script>
+
+
+    <script>
+        function updateTime() {
+            const currentTimeElement = document.getElementById('current-time');
+            const currentDate = new Date();
+            const currentTime = currentDate.toLocaleTimeString();
+            currentTimeElement.textContent = currentTime;
+        }
+
+        // Update the time immediately when the page loads
+        updateTime();
+
+        // Update the time every second
+        setInterval(updateTime, 1000);
+    </script>
+</body>
+</html>
