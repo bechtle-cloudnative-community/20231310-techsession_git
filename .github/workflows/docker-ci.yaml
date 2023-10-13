@@ -1,0 +1,35 @@
+name: docker-ci
+
+on:
+  push:
+    branches: ['main']
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    permissions:
+      packages: write
+
+    steps:
+    - name: check out code repro
+      uses: actions/checkout@v3
+      with: 
+        repository: bechtle-cloudnative-community/20231310-techsession_git
+        token: ${{ secrets.WORKFLOW }}
+        ref: main
+
+    - name: login to container registry
+      uses: docker/login-action@v2
+      with:
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ secrets.WORKFLOW }}
+
+    - name: build and push
+      uses: docker/build-push-action@v3
+      with:
+        context: .
+        platforms: linux/amd64
+        push: true
+        tags: ghcr.io/bechtle-cloudnative-community/20231310-techsession_git
